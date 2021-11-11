@@ -32,32 +32,38 @@ struct tree_node * Insert (int x, struct tree_node *t)
 
 struct tree_node * Remove (int x, struct tree_node *t)
 {
-    struct tree_node *root = t,
-                     *store = t;
+    struct tree_node *root = t;
 
     //If x isn't in the tree, it can't be removed
     if(!Contains(x, t)) return t;
 
-    if(root->item == x) {
-        //Moving left branch "up" one level
-        t = root->left;
+    if(t->item == x) {
+        if(t->right == NULL && t->left == NULL) {
+            t = NULL;
+            return t;
+        }
+        if(t->right == NULL && t->left != NULL) {
+            root = t;
+            t = t->left;
+            free(root);
+            return t;
+        }
+        if(t->right != NULL && t->left == NULL) {
+            root = t;
+            t = t->right;
+            free(root);
+            return t;
+        }
+        if(t->right != NULL && t->left != NULL) {
+            root = root->right;
+            while(root->left != NULL) {
+                root = root->left;
+            }
+            t->item = root->item;
+            root = NULL;
+        }
 
-        /* Searching the lower branch of the right branch of t *
-         * so the right branch from root->left can be moved    */
-        root = root->right;
-        while(root->left != NULL) 
-            root = root->left;
-        /* Since we know that the right branch of the left branch is lower than *
-         * all of the right branch, we searched for the first empty left branch */
-
-        //Inserting the right branch from the new top node of this recursion
-        root->left = t->right;
-
-        //Replacing pointer to the old right branch in the new top node of this recursion
-        t->right = store->right;
-
-        //Freeing removed node
-        free(store);
+        free(root);
         return t;
     }
     else if(root->left != NULL && x <= root->item) {

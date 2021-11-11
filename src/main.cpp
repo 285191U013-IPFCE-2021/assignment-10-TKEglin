@@ -66,9 +66,22 @@ int main(int argc, char **argv)
     printf("\n\nEmpty REQUIRE: %d", Empty(Initialize(NULL)));
 
 
-    Remove(20, root);
-    
-    //printf("\n\nAfter remove, contains 20: %d", Contains(20, root));
+    root = Remove(20, root);
+    printf("\n\nAfter remove, contains 20: %d", Contains(20, root));
+
+    root = Remove(5, root);
+    printf("\n\nAfter remove, contains 5: %d", Contains(5, root));
+
+    root = Remove(1, root);
+    printf("\n\nAfter remove, contains 1: %d", Contains(1, root));
+
+    root = Remove(25, root);
+    printf("\n\nAfter remove, contains 25: %d", Contains(25, root));
+
+    root = Remove(42, root);
+    printf("\n\nAfter remove, contains 42: %d", Contains(42, root));
+
+
 
     printf("\n\n\n**Main function reached end**");
     
