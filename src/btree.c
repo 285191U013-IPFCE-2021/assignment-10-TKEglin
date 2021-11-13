@@ -32,45 +32,54 @@ struct tree_node * Insert (int x, struct tree_node *t)
 
 struct tree_node * Remove (int x, struct tree_node *t)
 {
-    struct tree_node *root = t;
-
-    //If x isn't in the tree, it can't be removed
-    if(!Contains(x, t)) return t;
+    struct tree_node *root = t,  //Pointer for traversing the tree
+                     *store = t; //Pointer for storing node to free()
 
     if(t->item == x) {
         if(t->right == NULL && t->left == NULL) {
-            t = NULL;
-            return t;
+            free(store);
+            return NULL;
         }
         if(t->right == NULL && t->left != NULL) {
-            root = t;
             t = t->left;
-            free(root);
+            free(store);
             return t;
         }
         if(t->right != NULL && t->left == NULL) {
-            root = t;
             t = t->right;
-            free(root);
+            free(store);
             return t;
         }
         if(t->right != NULL && t->left != NULL) {
-            root = root->right;
-            while(root->left != NULL) {
-                root = root->left;
-            }
-            t->item = root->item;
-            root = NULL;
-        }
+            root = t->left;
 
-        free(root);
-        return t;
+            
+            if(root->right == NULL) {
+                t->item = root->item;
+                t->left = root->left;
+                free(root);
+                return t;
+            }
+            else {
+                /* In order to maintain pointer to the node I am    *
+                 * manipulating, I stop one node before reaching it */
+                while(root->right->right != NULL)
+                    root = t->right;
+
+                t->item = root->right->item;
+                store = root->right;
+                root->right = root->right->left;
+                free(store);
+                return t;
+            }            
+        }
     }
-    else if(root->left != NULL && x <= root->item) {
-        root = Remove(x, root->left);
+    
+    if(root->left != NULL && x <= root->item) {
+        t->left = Remove(x, root->left);
     }
-    else if(root->left != NULL && x > root->item) {
-        root = Remove(x, root->right);
+    if(root->right != NULL && x > root->item) {
+        t->right = Remove(x, root->right);
     }
 
     return t;
@@ -92,7 +101,7 @@ int Contains (int x, struct tree_node *t)
     if(root->left != NULL && x <= root->item) {
         sresult = Contains(x, root->left);
     }
-    else if(root->right != NULL && x > root->item) {
+    if(root->right != NULL && x > root->item) {
         sresult = Contains(x, root->right);
     }
 
@@ -102,10 +111,7 @@ int Contains (int x, struct tree_node *t)
 
 struct tree_node * Initialize (struct tree_node *t)
 {
-    struct tree_node *root = t;
-    root = NULL;
-
-    return root;
+    return NULL;
 }
 
 int Empty (struct tree_node *t)
@@ -125,7 +131,7 @@ void print_tree (struct tree_node * p, int depth) {
     int i;
 
     for (i = 0; i < depth; i = i + 1)
-    printf (" ");
+        printf (" ");
     printf ("| ");
 
     if (p == NULL)
@@ -138,5 +144,5 @@ void print_tree (struct tree_node * p, int depth) {
         print_tree (p->left, depth + 1);
 
     if (p->right)
-        print_tree (p->left, depth + 1);
+        print_tree (p->right, depth + 1);
 }

@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     root = Insert (42, root);
 
     printf("\n\n");
-    //print_tree(root, 0);
+    print_tree(root, 0);
 
     printf("\n\nContains 20: %d", Contains(20, root));
     printf("\nContains 5: %d", Contains(5, root));
@@ -66,22 +66,60 @@ int main(int argc, char **argv)
     printf("\n\nEmpty REQUIRE: %d", Empty(Initialize(NULL)));
 
 
+    //root = Remove(1, root); printf("\n\nAfter remove, contains 1: %d", Contains(1, root));
+
+    //root = Remove(5, root); printf("\nAfter remove, contains 5: %d", Contains(5, root));
+
+    //root = Remove(15, root); printf("\nAfter remove, contains 15: %d", Contains(15, root));
+
+    //root = Remove(20, root); printf("\nAfter remove, contains 20: %d", Contains(20, root));
+
+    //root = Remove(25, root); printf("\nAfter remove, contains 25: %d", Contains(25, root));
+
+    //root = Remove(42, root); printf("\nAfter remove, contains 42: %d", Contains(42, root));
+
     root = Remove(20, root);
-    printf("\n\nAfter remove, contains 20: %d", Contains(20, root));
-
-    root = Remove(5, root);
-    printf("\n\nAfter remove, contains 5: %d", Contains(5, root));
-
-    root = Remove(1, root);
-    printf("\n\nAfter remove, contains 1: %d", Contains(1, root));
-
+    printf("\n\n"); print_tree(root, 1);
+    root = Remove(30, root);
+    printf("\n"); print_tree(root, 1);
     root = Remove(25, root);
-    printf("\n\nAfter remove, contains 25: %d", Contains(25, root));
+    printf("\n"); print_tree(root, 1);
 
+    printf("\n\nContains 20: %d", Contains(20, root));
+    printf("\nContains 5: %d", Contains(5, root));
+    printf("\nContains 1: %d", Contains(1, root));
+    printf("\nContains 15: %d", Contains(15, root));
+    printf("\nContains 9: %d", Contains(9, root));
+    printf("\nContains 7: %d", Contains(7, root));
+    printf("\nContains 12: %d", Contains(12, root));
+    printf("\nContains 30: %d", Contains(30, root));
+    printf("\nContains 25: %d", Contains(25, root));
+    printf("\nContains 40: %d", Contains(40, root));
+    printf("\nContains 45: %d", Contains(45, root));
+    printf("\nContains 42: %d", Contains(42, root));
+    
+    root = Remove(5, root);
+    root = Remove(1, root);
+    root = Remove(15, root);
+    root = Remove(9, root);
+    root = Remove(7, root);
+    root = Remove(12, root);
+    root = Remove(40, root);
+    root = Remove(45, root);
     root = Remove(42, root);
-    printf("\n\nAfter remove, contains 42: %d", Contains(42, root));
 
-
+    printf("\n\nContains 20: %d", Contains(20, root));
+    printf("\nContains 5: %d", Contains(5, root));
+    printf("\nContains 1: %d", Contains(1, root));
+    printf("\nContains 15: %d", Contains(15, root));
+    printf("\nContains 9: %d", Contains(9, root));
+    printf("\nContains 7: %d", Contains(7, root));
+    printf("\nContains 12: %d", Contains(12, root));
+    printf("\nContains 30: %d", Contains(30, root));
+    printf("\nContains 25: %d", Contains(25, root));
+    printf("\nContains 40: %d", Contains(40, root));
+    printf("\nContains 45: %d", Contains(45, root));
+    printf("\nContains 42: %d", Contains(42, root));
 
     printf("\n\n\n**Main function reached end**");
     
